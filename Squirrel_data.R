@@ -1,22 +1,23 @@
 # Heidi Sielbach final project
 
+```{r}
+
 here::here()
 
-install.packages("tidyverse","here","tidytuesdayR","gtsummary")
+install.packages("tidyverse","here","tidytuesdayR","gtsummary","knirt")
 
 library(tidyverse)
 library(here)
 library(tidytuesdayR)
 library(gtsummary)
+library(knitr)
 
 squirrel_data <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-23/squirrel_data.csv')
+```
 
-str(squirrel_data)
+#gtsummary table
 
-names(squirrel_data)
-
-#1
-
+```{r}
 tbl_summary(
   squirrel_data,
   by= "Shift",
@@ -35,3 +36,30 @@ tbl_summary(
   modify_footnote(update = everything() ~ NA) |> 
   modify_header(label = "**Squirrel Characteristic**"
  )
+
+tbl_uvregression(
+  squirrel_data, 
+  y = "Shift",
+  include = c("Age", "Primary Fur Color", "Runs from"),
+  method = lm)  
+```
+
+```{r}
+
+table(squirrel_data$Age)
+
+class(squirrel_data$Age)
+
+?hist()
+
+squirrel_data_age <- factor(x=squirrel_data$Age, 
+                            levels=c(0,1,2),
+                            labels=c("Unknown","Juvenile","Adult"))
+#| label: fig-hist
+#| fig-cap: "Squirrel Data"
+hist(squirrel_data_age)
+```
+
+```{r}
+
+```
