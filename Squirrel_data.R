@@ -3,6 +3,8 @@
 
 here::here()
 
+setwd("C:/Users/heidi/OneDrive/Documents/EPI 590R/final-project")
+
 install.packages("tidyverse","here","tidytuesdayR","gtsummary","knirt")
 
 library(tidyverse)
