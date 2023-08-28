@@ -79,6 +79,9 @@ hist(squirrel_data$Primary_Fur_Color1, breaks=c(0,1,2,3), col="pink",
      xlab= "Fur Color (1=Grey, 2=Cinnamon, 3=Black)", ylab="Number of Squirrels with Color")
 
 
+x <- c(1,2,6,8,17)
+
+
 data_spread <- function(x) {
   a <- max(x, na.rm=TRUE)
   b <- min(x, na.rm=TRUE)
@@ -87,3 +90,11 @@ data_spread <- function(x) {
 }
 
 data_spread(squirrel_data$Primary_Fur_Color1)
+
+list(n = nrow(data),
+     mean_age = mean(data$age))
+
+usethis::use_readme_rmd
+
+
+?read_csv()
