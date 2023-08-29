@@ -13,8 +13,6 @@ theme: quartz
 Welcome to my project analyzing a data set consisting of observations of squirrels in New York's Central Park. This data set was originally published on May 5th, 2023 by user jonthegeek on Github's TidyTuesday, based on data collected in 2018 by The Squirrel Census.
 
 ```{r}
-here::here
-getwd()
 
 library(tidyverse)
 library(here)
@@ -40,10 +38,9 @@ squirrel_data$Runs_from1 <- ifelse(squirrel_data$Runs_from=="True", 2, 1)
 squirrel_data$Shift1 <- ifelse(squirrel_data$Shift=="AM", 2, 1)
 ```
 
-
 ```{r}
 #| label: tbl-one
-#| tbl-cap: "Descriptive statistics"
+#| tbl-cap: "**Squirrel observations by time of day seen**"
 tbl_summary(
   squirrel_data,
   by= "Shift",
@@ -66,13 +63,37 @@ tbl_summary(
 ```
 
 ```{r}
+table1 <- tbl_summary(
+  squirrel_data,
+  by= "Shift",
+  include= c("Age", "Primary_Fur_Color", "Location", "Foraging", "Approaches", "Runs_from"),
+  label= list(
+    "Age" ~ "Age",
+    "Primary_Fur_Color" ~ "Primary Fur Color",
+    "Location" ~ "Location Seen At",
+    "Foraging" ~ "Foraging Observed",
+    "Approaches" ~ "Approached Humans",
+    "Runs_from" ~ "Ran From Humans"
+  ),
+  missing_text = "Observation Not Recorded")  |> 
+  add_overall(col_label = "**All Sightings**") |> 
+  bold_labels() |> 
+  modify_footnote(update = everything() ~ NA) |> 
+  modify_header(label = "**Squirrel Characteristic**"
+ )
+
+```
+
+@tbl-one summarizes data compiled from observations of squirrels in Central Park, NY, specifically observations regarding their age, primary fur color, locations seen at, foraging behavior, and whether they approached or ran from humans, stratified by the time of day they were seen (AM or PM).
+
+```{r}
 linear_model_squirrel <- lm(Shift1 ~ Age1 + Primary_Fur_Color1 + Location1, 
                    data = squirrel_data)
 ```
 
 ```{r}
 #| label: tbl-two
-#| tbl-cap: "Descriptiveee statistics"
+#| tbl-cap: "**Linear regression of age, primary fur color, and location sighted at on the time of day the squirrel was seen**"
 tbl_regression(
   linear_model_squirrel, 
   intercept = TRUE,
@@ -84,15 +105,17 @@ tbl_regression(
 
 ```
 
+@tbl-two shows the regression of time of day seen (AM or PM) on age, primary fur color, and location seen at. 
+
 ```{r}
 #| label: fig-hist
-#| fig-cap: "Primary Fur Color Histogram"
+#| fig-cap: "**Primary Fur Color Relative Frequencies**"
 hist(squirrel_data$Primary_Fur_Color1, breaks=c(0,1,2,3), col="pink", 
      main="Squirrel Colors (n=2698)", border="black", 
      xlab= "Fur Color (1=Grey, 2=Cinnamon, 3=Black)", ylab="Number of Squirrels with Color")
 ```
 
-@tbl-one summarizes data compiled from observations of squirrels in Central Park, NY, specifically observations regarding their age, primary fur color, locations seen at, foraging behavior, and whether they approached or ran from humans, stratified by the shift seen (AM or PM). @tbl-two shows the regression of shift seen (AM or PM) on age, primary fur color, and location seen at. @fig-hist displays the proportions of primary fur color among the squirrels in the park.
+@fig-hist displays the proportions of primary fur color among the squirrels in the park.
 
 ```{r}
 x <- c(1,2,4,5,6)
@@ -104,14 +127,9 @@ data_spread <- function(x) {
   return(spread)
 }
 
-data_spread(squirrel_data$Primary_Fur_Color1)
-
 nodupes <- (squirrel_data[!duplicated(squirrel_data$Specific_Location),])
 
 intextnodupes <- as.numeric(nrow(nodupes))
-
-squirrel_data[5, "Specific_Location"]
 ```
 
-
-As seen in Table 1, inline_text(table1, variable = ""Location", column= "PM") is the most common location squirrels were seen at in the evening hours. There were `r intextnodupes` unique locations squirrels were observed at.
+As seen in Table 1, there were only two age groups used to categorize squirrels (range =`r data_spread(squirrel_data$Age1)`), which is a limitation of the data necessitated by the way in which it was collected (visual observation from a distance). There were `r intextnodupes` unique locations squirrels were recorded to be observed at.
