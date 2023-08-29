@@ -127,6 +127,8 @@ data_spread <- function(x) {
   return(spread)
 }
 
+#I created the above function to calculate ranges, or data spread
+
 nodupes <- (squirrel_data[!duplicated(squirrel_data$Specific_Location),])
 
 intextnodupes <- as.numeric(nrow(nodupes))
