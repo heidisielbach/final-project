@@ -9,8 +9,7 @@ execute:
   message: false
 theme: quartz
 ---
-
-Welcome to my project analyzing a data set consisting of observations of squirrels in New York's Central Park. This data set was originally published on May 5th, 2023 by user jonthegeek on Github's TidyTuesday, based on data collected in 2018 by The Squirrel Census.
+Welcome to my project analyzing a data set consisting of observations of squirrels in New York's Central Park. This data set was published on May 5th, 2023 by user jonthegeek on Github's TidyTuesday, based on data collected in 2018 by The Squirrel Census. The data are observations of squirrels seen in the park, including physical characteristics such as age and fur color, and behavioral characteristics such as foraging activity, approaching humans, or running from humans.
 
 ```{r}
 
