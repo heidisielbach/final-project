@@ -110,7 +110,7 @@ tbl_regression(
 
 ```{r}
 #| label: fig-hist
-#| fig-cap: "**Primary Fur Color Relative Frequencies**"
+#| fig-cap: "**Primary Fur Color Histogram**"
 hist(squirrel_data$Primary_Fur_Color1, breaks=c(0,1,2,3), col="pink", 
      main="Squirrel Colors (n=2698)", border="black", 
      xlab= "Fur Color (1=Grey, 2=Cinnamon, 3=Black)", ylab="Number of Squirrels with Color")
