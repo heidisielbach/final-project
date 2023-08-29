@@ -62,6 +62,7 @@ tbl_summary(
 
 ```
 
+
 ```{r}
 table1 <- tbl_summary(
   squirrel_data,
