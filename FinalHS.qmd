@@ -44,9 +44,8 @@ squirrel_data$Shift1 <- ifelse(squirrel_data$Shift=="AM", 2, 1)
 tbl_summary(
   squirrel_data,
   by= "Shift",
-  include= c("Age", "Primary_Fur_Color", "Location", "Foraging", "Approaches", "Runs_from"),
+  include= c("Primary_Fur_Color", "Location", "Foraging", "Approaches", "Runs_from"),
   label= list(
-    "Age" ~ "Age",
     "Primary_Fur_Color" ~ "Primary Fur Color",
     "Location" ~ "Location Seen At",
     "Foraging" ~ "Foraging Observed",
@@ -85,7 +84,7 @@ table1 <- tbl_summary(
 
 ```
 
-@tbl-one summarizes data compiled from observations of squirrels in Central Park, NY, specifically observations regarding their age, primary fur color, locations seen at, foraging behavior, and whether they approached or ran from humans, stratified by the time of day they were seen (AM or PM).
+@tbl-one summarizes data compiled from observations of squirrels in Central Park, NY, specifically observations regarding their primary fur color, locations seen at, foraging behavior, and whether they approached or ran from humans, stratified by the time of day they were seen (AM or PM).
 
 ```{r}
 linear_model_squirrel <- lm(Shift1 ~ Age1 + Primary_Fur_Color1 + Location1, 
